@@ -9,7 +9,7 @@
 /**
  * Exercice 1
  */
-void grapherandom(int n, int m, int edge[][2])
+void grapherandom(int n, int m, int **edge)
 {
     for (int i = 0; i < m; i++) {
         edge[i][0] = rand() % n;
@@ -20,7 +20,7 @@ void grapherandom(int n, int m, int edge[][2])
 /**
  * Exercice 2
  */
-void composantes(int n, int m, int edge[][2], int comp[])
+void composantes(int n, int m, int **edge, int *comp)
 {
     for (int i = 0; i < n; i++) {
         comp[i] = i;
@@ -43,10 +43,10 @@ void composantes(int n, int m, int edge[][2], int comp[])
 /**
  * Exercice 3
  */
-void ecrituretailles(int n, int m, int comp[])
+void ecrituretailles(int n, int *comp)
 {
-    int taille[n];
-    int orderedtaille[n + 1];
+    int *taille = new int[n];
+    int *orderedtaille = new int[n + 1];
 
     for (int i = 0; i < n; i++) {
         taille[i] = 0;
@@ -74,6 +74,9 @@ void ecrituretailles(int n, int m, int comp[])
         std::cout << "Il y a " << orderedtaille[i]
            << " composantes de taille " << i << "." << std::endl;
     }
+
+    delete[] taille;
+    delete[] orderedtaille;
 }
 
 int main()
@@ -86,12 +89,21 @@ int main()
     std::cout << "Entrer le nombre d'aretes:";
     std::cin >> m;
 
-    int edge[m][2];
-    int comp[n];
+    int *comp = new int[n];
+    int **edge = new int*[m];
+    for (int i = 0; i < m; i++) {
+        edge[i] = new int[2];
+    }
 
     grapherandom(n, m, edge);
     composantes(n, m, edge, comp);
-    ecrituretailles(n, m, comp);
+    ecrituretailles(n, comp);
+
+    delete[] comp;
+    for (int i = 0; i < m; i++) {
+        delete[] edge[i];
+    }
+    delete[] edge;
 
     return EXIT_SUCCESS;
 }
