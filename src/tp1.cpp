@@ -81,6 +81,8 @@ void ecrituretailles(int n, int *comp)
 
 int main()
 {
+    srand(time(NULL));
+
     int n;
     int m;
 
