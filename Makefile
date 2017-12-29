@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-W -Wall -ansi -pedantic
+CFLAGS=-W -Wall -ansi -pedantic --std=c++11
 
 .PHONY=clean tp1 tp2
 
